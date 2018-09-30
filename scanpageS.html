@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link href="css/mui.min.css" rel="stylesheet"/>
+<link href="css/common.css" rel="stylesheet"/>
+<style type="text/css">
+#bcid {
+	width: 100%;
+	position: absolute;
+	top: 0px;
+	bottom: 44px;
+	text-align: center;
+}
+.tip {
+	color: #FFFFFF;
+	font-weight: bold;
+	text-shadow: 0px -1px #103E5C;
+}
+footer {
+	width: 100%;
+	height: 44px;
+	position: absolute;
+	bottom: 0px;
+	line-height: 44px;
+	text-align: center;
+	color: #FFF;
+}
+.fbt {
+	width: 50%;
+	height: 100%;
+	background-color: #FFCC33;
+	float: left;
+}
+.fbt:active {
+  	-webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+	box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.5);
+}
+body {
+	background: #000;
+}
+</style>
+</head>
+<body>
+
+<div id="bcid">
+	<div style="height:40%"></div>
+	<p class="tip">...载入中...</p>
+</div>
+<footer>
+	<div class="fbt" onclick="back()">取　 消</div>
+	<div class="fbt" onclick="handPut()">手动输入</div>
+</footer>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init({
+	swipeBack: true
+});
+
+var ws=null,
+	scan=null;
+
+mui.plusReady(function(){
+	// 获取窗口对象
+	ws=plus.webview.currentWebview();
+	// 开始扫描
+	ws.addEventListener('show', function(){
+		scan=new plus.barcode.Barcode('bcid');
+	    scan.onmarked=onmarked;
+	    scan.start({conserve:true,filename:'_doc/barcode/'});
+	}, false);
+	// 显示页面并关闭等待框
+    ws.show('pop-in');
+})
+
+// 二维码扫描成功
+function onmarked(type, result, file){
+    switch(type){
+    	case plus.barcode.QR:
+    	type = 'QR';
+    	break;
+    	case plus.barcode.EAN13:
+    	type = 'EAN13';
+    	break;
+    	case plus.barcode.EAN8:
+    	type = 'EAN8';
+    	break;
+    	default:
+    	type = '其它'+type;
+    	break;
+    }
+    result = result.replace(/\r\n/g, '');
+//  plus.webview.currentWebview().opener().evalJS("scaned('"+ type +"','"+ result +"','"+ file +"');");
+    //触发详情页面的scaned事件
+	mui.fire(plus.webview.getWebviewById("cpage"),'scaned',{
+		res: result
+	});
+    back();
+}
+// 从相册中选择二维码图片 
+function scanPicture(){
+    plus.gallery.pick(function(path){
+	    plus.barcode.scan(path,onmarked,function(error){
+			plus.nativeUI.alert('无法识别此图片');
+		});
+    }, function(err){
+        console.log('Failed: '+err.message);
+    });
+}
+
+function back(){
+	plus.webview.currentWebview().opener().evalJS("closeBarcode();");
+	mui.back();
+}
+
+function handPut(){
+	mui.prompt('请输入单据号：', '', '汇仁扫码', ['确定', '取消'], function(e) {
+		if (e.index == 0) {
+			mui.fire(plus.webview.getWebviewById("cpage"),'scaned',{
+				res: e.value
+			});
+		    back();
+		} else {
+			
+		}
+	})
+}
+</script>
+</body>
+</html>

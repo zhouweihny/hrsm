@@ -1,0 +1,19 @@
+{
+	"index.html": {
+		"resources": [
+			"cpage.html"
+		],
+		"refer": [
+			"cpage.html",
+			"user.html",
+			"scanpage.html",
+			"scandetail.html"
+		]
+	},
+	"cpage.html": {
+		"refer": [
+			"scanpage.html",
+			"scandetail.html"
+		]
+	}
+}

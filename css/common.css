@@ -1,0 +1,286 @@
+.ui-page-login,
+body {
+	width: 100%;
+	/*height: 100%;*/
+	margin: 0px;
+	padding: 0px;
+}
+.mui-content{height: 100%;}
+
+/**
+ * 常用
+**/
+.fn-mr-20 {
+	margin-right: 20px;
+}
+.fn-ml-20 {
+	margin-left: 20px;
+}
+.fn-high {
+	color: red;
+}
+.fn-right {
+	float: right;
+}
+.fn-left {
+	float: left;
+}
+/* 清理浮动 */
+.fn-clear:after {
+    visibility:hidden;
+    display:block;
+    font-size:0;
+    content:" ";
+    clear:both;
+    height:0;
+}
+.fn-clear {
+    zoom:1; /* for IE6 IE7 */
+}
+.fn-center {
+	text-align: center!important;
+}
+.fn-text-right {
+	text-align: right!important;
+}
+.fn-hide {
+	display: none;
+}
+.fn-va-top {
+	vertical-align: top;
+}
+.fn-pd-10 {
+	padding: 10px;
+}
+.fn-mb-20 {
+	margin-bottom: 20px;
+}
+.zui-loading-bg {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	cursor: wait;
+	background: #fff;
+	opacity: .3;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.zui-loading {
+	background: #3C3C3C;
+	width: auto;
+	border-radius: 5px;
+	z-index: 999;
+	cursor: wait;
+	position: fixed;
+	top: 40%;
+	left: 50%;
+	margin: -20px 0 0 -85px;
+	padding: 20px 10px;
+	font-size: 14px;
+	color: #fff;
+    max-width: 70%;
+}
+.zui-loading .load {
+	width: 20px;
+    height: 20px;
+    background: url(img/icon-spin-s.png) 0 0 no-repeat;
+    background-size: 20px 20px;
+    display: inline-block;
+    -webkit-animation: spinner-spin 800ms infinite linear;
+    animation: spinner-spin 800ms infinite linear;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/**
+ * 自定义mui样式
+ * */
+body {
+	font-family: \5fae\8f6f\96c5\9ed1, Verdana, Arial, \5b8b\4f53, sans-serif;
+	background: #E3E8EE;
+}
+.mui-input-row label, input, select, textarea {
+	font-family: \5fae\8f6f\96c5\9ed1, Verdana, Arial, \5b8b\4f53, sans-serif;
+}
+.mui-bar {
+	background: #fff;
+}
+nav.mui-bar {
+	border-top: 1px solid #DADADB;
+}
+.mui-bar-nav {
+    background: #0AB0B3;
+    height: 50px;
+}
+.mui-bar-nav .mui-title, .mui-bar-nav .mui-btn-nav.mui-pull-right, .mui-bar-nav .mui-action-back.mui-pull-left, .mui-bar-nav .mui-pull-right {
+	color: #fff;
+}
+.mui-content {
+	background: #E5E9EF;
+}
+.mui-bar-nav .mui-title {
+	font-size: 20px;
+    line-height: 46px;
+}
+.mui-bar-nav .mui-btn-nav.mui-pull-right {
+    margin-right: 10px;
+}
+.mui-bar-tab .mui-tab-item.mui-active {
+    color: #0EB1B4;
+}
+.mui-table-view-cell {
+	padding: 15px;
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+	margin: -15px;
+}
+
+
+/**
+ * 下拉上拉刷新
+ * */
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #bbb;
+	overflow: hidden;
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	box-shadow: 0 4px 10px #bbb;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #efeff4;
+}
+.mui-pull-top-tips {
+	position: absolute;
+	/*top: -20px;*/
+    top: -120px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #bbb;
+	overflow: hidden;
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	box-shadow: 0 4px 10px #bbb;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.pull-loading {
+	width: 30px;
+    height: 30px;
+    margin: 5px 0 0 2px;
+    display: inline-block;
+    -webkit-animation: spinner-spin 800ms infinite linear;
+    animation: spinner-spin 800ms infinite linear;
+    -webkit-transition: all 800ms;
+    transition: all 800ms;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+html { font - size: 62.5 % }
+@media only screen and(min-width: 481px) { html { font-size: 94%!important } }
+@media only screen and(min-width: 561px) { html { font-size: 109%!important } }
+@media only screen and(min-width: 641px) { html { font-size: 125%!important }}
+
+body {
+    font-family: \5fae\8f6f\96c5\9ed1, Verdana, Arial, \5b8b\4f53, sans-serif;
+    background: #fbf9fe;
+}

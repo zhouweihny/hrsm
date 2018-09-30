@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link href="css/mui.min.css" rel="stylesheet"/>
+<link href="css/common.css" rel="stylesheet"/>
+<style type="text/css">
+#J_tips {
+	width: 100%;
+	height: 5rem;
+	line-height: 5rem;
+	text-align: center;
+	font-size: .8rem;
+	position: fixed;
+	top: 50%;
+	left: 0;
+	margin: -3rem 0 0 0;
+}
+.mui-ios .mui-table-view-cell {
+    padding: 10px 0;
+}
+.mui-table-view-cell:after {
+	left: 0;
+}
+.zitem {
+	padding: 0 15px;
+}
+.zitem label {
+    color: #6d6d72;
+    float: left;
+    width: 15%;
+    line-height: 1.1;
+    font-size: .6rem;
+}
+.zitem .des {
+    float: left;
+    width: 85%;
+    line-height: 1.1;
+    font-size: .6rem;
+}
+.error {
+    color: #f00;
+}
+.mui-input-row label {
+    padding: 4px 0;
+}
+.mui-input-row .J_bls{
+	padding: 5px 0;
+    height: 21px;
+    width: 72%;
+}
+.J_topCard .mui-card-content-inner {
+    padding: 2px 15px;
+}
+.J_topCard .mui-table-view-cell label {
+	width: 28%;
+    font-size: .6rem;
+}
+.J_topCard .mui-table-view-cell span {
+    float: right;
+    width: 72%;
+    margin-bottom: 0;
+    padding-left: 0;
+    border: 0;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.mui-icon-compose {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#J_topCard .J_subBtnWrap {
+	text-align: center;
+}
+#J_topCard .J_subBtnWrap .mui-btn {
+	float: none;
+    width: 40%;
+}
+.J_numdes {
+	display: inline-block;
+    width: 25px;
+    text-align: center;
+    border: 1px solid #d2d2d2;
+    border-radius: 50%;
+    height: 25px;
+    line-height: 25px;
+    font-weight: normal;
+    margin-right: 6px;
+    color: #333;
+}
+#J_drugTotal {
+	font-size: .65rem;
+}
+#J_drugTotal b {
+	font-weight: normal;
+    font-size: .55rem;
+    display: inline-block;
+    margin-left: 3px;
+    color: #555;
+}
+#J_topCard .J_subBtnWrap .J_cancelBtn {
+    width: 20%;
+    margin-right: 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="J_wrap" id="J_wrap">
+	<p id="J_tips" class="">暂无扫描信息</p>
+	
+	<div id="J_cardWrap" class="fn-hide">
+		<div class="mui-card J_topCard" id="J_topCard">
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<div class="mui-input-row">
+						        <label>比例数：</label>
+						        <input type="number" id="J_bls" class="J_bls" value="1" onkeyup='clearNoNumS(this)' onblur='clearNoNumS(this, 2)'/>
+						    	<i class="mui-icon mui-icon-compose"></i>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-input-row">
+								<label>已扫描数量：</label>
+								<!--<span id="J_drugTotal">200<b>/1000</b></span>-->
+								<span id="J_drugTotal"></span>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-input-row J_subBtnWrap">
+								<button type="button" class="mui-btn J_cancelBtn" onclick="cancelSub();">取 消</button>
+								<button type="button" class="mui-btn mui-btn-danger" id="J_subBtn" onclick="subDrugDatas();">提 交</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mui-card J_topCard" id="J_djCard">
+			<div class="mui-card-header">单据号</div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner">
+					<ul class="mui-table-view">
+						<!--<li class="mui-table-view-cell">
+							<b class="J_numdes">1</b>797987894564
+						</li>
+						<li class="mui-table-view-cell">
+							<b class="J_numdes">2</b>797987894564
+						</li>
+						<li class="mui-table-view-cell">
+							<b class="J_numdes">39</b>797987894564
+						</li>-->
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="mui-card" id="J_drugInfo">
+			<!--<div class="mui-card-header">阿莫西林</div>
+			<div class="mui-card-content">
+				<div class="mui-card-content-inner zitem">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<label>规格：</label>
+							<span class="des">464a</span>
+						</li>
+						<li class="mui-table-view-cell">
+							<label>批号：</label>
+							<span class="des">464a</span>
+						</li>
+						<li class="mui-table-view-cell">
+							<label>厂商：</label>
+							<span class="des">汇仁医药汇仁医药汇仁医药汇仁医药汇仁医药汇仁医药汇仁医药汇仁医药</span>
+						</li>
+						<li class="mui-table-view-cell">
+							<label>产地：</label>
+							<span class="des">汇仁医药</span>
+						</li>
+						<li class="mui-table-view-cell">
+							<label>数量：</label>
+							<span class="des">88</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="mui-card-footer">
+				<label>状态：</label>
+				<span class="des">正常</span>
+			</div>-->
+		</div>
+	</div>
+</div>
+
+<textarea class="fn-hide" id="T_drugInfo">
+<div class="mui-card-header">{{pm}}</div>
+<div class="mui-card-content">
+	<div class="mui-card-content-inner zitem">
+		<ul class="mui-table-view">
+			<li class="mui-table-view-cell">
+				<label>规格：</label>
+				<span class="des">{{gg}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				<label>批号：</label>
+				<span class="des">{{ph}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				<label>厂商：</label>
+				<span class="des">{{cs}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				<label>产地：</label>
+				<span class="des">{{cd}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				<label>数量：</label>
+				<span class="des">{{sl}}</span>
+			</li>
+			<li class="mui-table-view-cell">
+				<label>状态：</label>
+				{{retNewState zt}}
+			</li>
+		</ul>
+	</div>
+</div>
+</textarea>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/handlebars.js"></script>
+<script src="js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init({
+	swipeBack: true
+});
+
+var cpage_druglock = null,
+	curDrugNum = 0,// 当前条码类别的药品数量
+	drugCodeArr = [];// 当前条码类别
+
+mui.plusReady(function(){
+//	localStorage.setItem("cpage_druglock", null);
+	reSetPages();
+})
+
+//添加scaned自定义事件监听
+window.addEventListener('scaned',function(event){
+	//获得事件参数
+	var res = event.detail.res;
+	if(res && res.length == 27){
+		/**
+		 * 首次或者提交后，第一次扫描
+		 * ajax 获取药品信息
+		 * **/
+		cpage_druglock = localStorage.getItem("cpage_druglock");
+		if(cpage_druglock && cpage_druglock == '1'){
+			// 判断是否同一类条码，添加条码信息，计算当前扫描数量
+			addDrugCode(res);
+		}else{
+			getDrugData(res);
+		}
+	}else{
+		mui.toast("条码错误！");
+	}
+});
+
+function getDrugData(res){
+	createLoading();
+	curDrugNum = 0;
+	$.PostJson("json/test.json", "code="+res, function(state, json){
+		if(state == 'success'){
+			if(json && json.code == '0000'){
+				$("#J_cardWrap").removeClass("fn-hide");
+				$("#J_drugInfo").temp($("#T_drugInfo").val(), json.data);
+				$("#J_tips").addClass("fn-hide");
+				
+				curDrugNum = json.data.sl;
+				$("#J_bls").val(json.data.bls || 1);
+				
+				addDrugCode(res);
+				
+				// 设置锁，不再请求药品信息
+				localStorage.setItem("cpage_druglock", '1');
+			}else{
+				reSetPages();
+				mui.alert(json.message || "获取扫描结果失败！");
+			}
+		}
+		unblockLoading();
+	})
+}
+
+function addDrugCode(res){
+	// 和第一条条码对比，判断是否同一类药品
+	if(!drugCodeArr.length || res.slice(0,3) == drugCodeArr[0].slice(0,3)){
+		
+		if(drugCodeArr.indexOf(res) !== -1){
+			mui.toast("已存在该条码！");
+			return false;
+		}
+		
+		drugCodeArr.push(res);
+		$("#J_codeList").text(drugCodeArr.join(","));
+		var _bls = parseInt($("#J_bls").val(), 10) || 1,
+			_len = drugCodeArr.length,
+			_total = _bls * _len;
+		$("#J_drugTotal").html(_total+"<b>/"+curDrugNum+"</b>");
+		
+		$("#J_djCard .mui-table-view").append('<li class="mui-table-view-cell"><b class="J_numdes">'+_len+'</b>'+res+'</li>');
+		
+		if(_total >= curDrugNum){
+			// 自动提交
+			subDrugDatas();
+		}
+	}else{
+		mui.toast("该条码与当前条码组不属同类！");
+	}
+}
+
+Handlebars.registerHelper('retNewState', function(state) {
+	var buffer = '<span class="des error">异常</span>'
+	if(state && state !== '0'){
+		buffer = '<span class="des">正常</span>';
+	}
+	return new Handlebars.SafeString(buffer);
+});
+
+function subDrugDatas(){
+	
+	if(!drugCodeArr.length){
+		mui.toast("请先扫描！");
+		return false;
+	}
+	
+	var _bls = parseInt($("#J_bls").val(), 10) || 1,
+		_len = drugCodeArr.length,
+		_total = _bls * _len;
+	if(_total < curDrugNum){
+		mui.confirm("当前已扫描数量少于订单数量，是否仍然提交？", "汇仁扫码", ['是', '否'], function(e){
+			if (e.index == 0) {
+				subDrugDataAjax();
+			}
+		})
+	}else{
+		subDrugDataAjax();
+	}
+}
+
+function subDrugDataAjax(){
+	console.log(JSON.stringify(drugCodeArr));
+	createLoading();
+	$.PostJson("json/test.json", "code="+JSON.stringify(drugCodeArr), function(state, json){
+		if(state == 'success'){
+			if(json && json.code == '0000'){
+				mui.toast("提交数据成功");
+				reSetPages();
+			}else{
+				mui.alert(json.message || "提交数据失败！");
+			}
+		}
+		unblockLoading();
+	})
+}
+
+function cancelSub(){
+	mui.confirm("是否全部清除，重置页面？", "汇仁扫码", ['是', '否'], function(e){
+		if (e.index == 0) {
+			reSetPages();
+		}
+	})
+}
+
+function reSetPages(){
+	$("#J_tips").removeClass("fn-hide");
+	$("#J_cardWrap").addClass("fn-hide");
+	$("#J_drugInfo").html("");
+	$("#J_djCard .mui-table-view").html("");
+	$("#J_drugTotal").html("");
+	$("#J_bls").val("1");
+	// 关闭锁
+	localStorage.setItem("cpage_druglock", null);
+	drugCodeArr.length = 0;
+	curDrugNum = 0;
+}
+
+function clearNoNumS(obj, type){
+	var zkey = type==2?1:"";
+    // 限制输入正整数
+    obj.value = obj.value.replace(/[^\d]/g,"") || zkey;
+    
+    var _total = (parseInt($("#J_bls").val(), 10) || 1) * drugCodeArr.length;
+    $("#J_drugTotal").html(_total+"<b>/"+curDrugNum+"</b>");
+}
+
+</script>
+</body>
+</html>

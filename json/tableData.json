@@ -1,0 +1,90 @@
+{
+    "code": "0000",
+    "message": "",
+    "totalRows": 30,
+    "pageSize": 10,
+    "currentPage": 1,
+    "page": true,
+    "data": [
+        {
+            "id": "9F79C6F2E14D4ECE8CBA4640BCA22B75",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "10sdax00",
+            "num": "100",
+            "customer": "江西汇仁堂",
+            "createtime": "2018-08-08 09:22:21"
+        },
+        {
+            "id": "7FEC42EC2812430CBB6EFE2D23028AA0",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "601",
+            "num": "1",
+            "customer": "站前路店",
+            "createtime": "2018-08-08 09:23:33"
+        },
+        {
+            "id": "CECCA244ED914199BBC7945C93B76089",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "602",
+            "num": "2",
+            "customer": "洪城店",
+            "createtime": "2018-07-31 13:41:34"
+        },
+        {
+            "id": "63A6CD29802F47A79F39FF8830393C7D",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "604",
+            "num": "3",
+            "customer": "洪都店",
+            "createtime": "2018-07-31 13:41:34"
+        },
+        {
+            "id": "C27F96A61ADA4DB48D21B63C4B797F5B",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "612",
+            "num": "4",
+            "customer": "迎宾店",
+            "createtime": "2018-09-04 16:55:57"
+        },
+        {
+            "id": "FE8D55CF50E74150830FAFF62A50C777",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "613",
+            "num": "5",
+            "customer": "蛟桥店",
+            "createtime": "2018-09-04 16:55:58"
+        },
+        {
+            "id": "3571E23D13B1452EAB35023D8A37D6E4",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "614",
+            "num": "6",
+            "customer": "朝新店",
+            "createtime": "2018-07-31 13:41:34"
+        },
+        {
+            "id": "F8DF99F7F036477881F684E6F60C7598",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "616",
+            "num": "7",
+            "customer": "惠东店",
+            "createtime": "2018-09-04 16:55:58"
+        },
+        {
+            "id": "0864FDC1D2064D15B7381BBA2C627352",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "618",
+            "num": "8",
+            "customer": "惠明店",
+            "createtime": "2018-09-04 16:55:59"
+        },
+        {
+            "id": "9192F56567D74A7E8554D394C2C1F666",
+            "bcode": "6E424AD659C04C1BBB4CCB6EE085BD72",
+            "dcode": "621",
+            "num": "9",
+            "customer": "大润发店",
+            "createtime": "2018-07-31 13:41:34"
+        }
+    ]
+}

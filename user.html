@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link href="css/mui.min.css" rel="stylesheet"/>
+<link href="css/font-awesome.css" rel="stylesheet"/>
+<link href="css/common.css" rel="stylesheet"/>
+<style type="text/css">
+.mui-bar~.mui-content .mui-fullscreen {
+	top: 44px;
+	height: auto;
+}
+.mui-pull-top-tips {
+	position: absolute;
+	top: -20px;
+	left: 50%;
+	margin-left: -25px;
+	width: 40px;
+	height: 40px;
+	border-radius: 100%;
+	z-index: 999;
+}
+.mui-bar~.mui-pull-top-tips {
+	top: 24px;
+}
+.mui-pull-top-wrapper {
+	width: 42px;
+	height: 42px;
+	display: block;
+	text-align: center;
+	background-color: #efeff4;
+	border: 1px solid #ddd;
+	border-radius: 25px;
+	background-clip: padding-box;
+	box-shadow: 0 4px 10px #bbb;
+	overflow: hidden;
+}
+.mui-pull-top-tips.mui-transitioning {
+	-webkit-transition-duration: 200ms;
+	transition-duration: 200ms;
+}
+.mui-pull-top-tips .mui-pull-loading {
+	/*-webkit-backface-visibility: hidden;
+	-webkit-transition-duration: 400ms;
+	transition-duration: 400ms;*/
+	
+	margin: 0;
+}
+.mui-pull-top-wrapper .mui-icon,
+.mui-pull-top-wrapper .mui-spinner {
+	margin-top: 7px;
+}
+.mui-pull-top-wrapper .mui-icon.mui-reverse {
+	/*-webkit-transform: rotate(180deg) translateZ(0);*/
+}
+.mui-pull-bottom-tips {
+	text-align: center;
+	background-color: #efeff4;
+	font-size: 15px;
+	line-height: 40px;
+	color: #777;
+}
+.mui-pull-top-canvas {
+	overflow: hidden;
+	background-color: #fafafa;
+	border-radius: 40px;
+	box-shadow: 0 4px 10px #bbb;
+	width: 40px;
+	height: 40px;
+	margin: 0 auto;
+}
+.mui-pull-top-canvas canvas {
+	width: 40px;
+}
+.mui-slider-indicator.mui-segmented-control {
+	background-color: #efeff4;
+}
+.mui-table-view-cell {
+    padding: 10px 0;
+    margin: 0;
+}
+.mui-table-view-cell:after {
+	left: 0;
+}
+.zitem {
+	padding: 0 15px;
+}
+.J_card .mui-table-view-cell label {
+    text-align: justify;
+    width: 3rem;
+    float: left;
+    height: 26px;
+    line-height: 26px;
+    color: #777;
+}
+.J_card .mui-table-view-cell label:after{
+    display: inline-block; 
+    content: ''; 
+    padding-left: 100%; 
+}
+.J_card .mui-table-view-cell span {
+    width: calc(100% - 3rem);
+    float: left;
+    line-height: 26px;
+    padding-left: 5px;
+    word-break: break-all;
+    word-wrap: break-word;
+    /**
+	 * 显示一行
+	**/
+    overflow: hidden;
+	white-space: normal;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+}
+
+.mui-popover{
+    position: fixed;
+    width: 80%;
+    height: auto;
+    z-index: 99;
+    border-radius: 3px;
+    left: 50%;
+    top: 40%;
+    margin: 0 auto;
+    z-index: 9999;
+    background-color: #fff;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    
+    background-color: transparent;
+    box-shadow: none;
+}
+.mui-popover-arrow{
+    display: none;
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+    margin: -15px 12px;
+}
+.mui-popover .mui-table-view {
+	background-color: #fff;
+}
+.mui-popover .zitem {
+    padding: 6px 15px;
+}
+</style>
+</head>
+<body>
+
+<div class="mui-content">
+	<div id="scroll1" class="mui-scroll-wrapper">
+		<div class="mui-scroll">
+			<div id="J_medList">
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+ <div id="J_pop" class="mui-popover" >
+    <div class="mui-card J_card">
+		<div class="mui-card-content">
+			<div class="mui-card-content-inner zitem">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<label>编码：</label>
+						<span class="des">{{bcode}}</span>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>单号：</label>
+						<span class="des">{{dcode}}</span>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>客户：</label>
+						<span class="des">{{customer}}</span>
+					</li>
+					<li class="mui-table-view-cell">
+						<label>数量：</label>
+						<span class="des">{{num}}</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<textarea class="fn-hide" id="T_medList">
+{{#each this}}
+<div class="mui-card J_card">
+	<div class="mui-card-content">
+		<div class="mui-card-content-inner zitem">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<label>编码：</label>
+					<span class="des">{{bcode}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>单号：</label>
+					<span class="des">{{dcode}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>客户：</label>
+					<span class="des">{{customer}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>数量：</label>
+					<span class="des">{{num}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>扫描时间：</label>
+					<span class="des">{{createtime}}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+{{/each}}
+</textarea>
+
+<textarea class="fn-hide" id="T_pop">
+<div class="mui-card J_card">
+	<div class="mui-card-content">
+		<div class="mui-card-content-inner zitem">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<label>编码：</label>
+					<span class="des">{{bcode}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>单号：</label>
+					<span class="des">{{dcode}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>客户：</label>
+					<span class="des">{{customer}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>数量：</label>
+					<span class="des">{{num}}</span>
+				</li>
+				<li class="mui-table-view-cell">
+					<label>扫描时间：</label>
+					<span class="des">{{createtime}}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</textarea>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/mui.pullToRefresh.js"></script>
+<script src="js/mui.pullToRefresh.material.js"></script>
+<script src="js/handlebars.js"></script>
+<script src="js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init({
+	swipeBack: true
+});
+
+var page = 1,
+	rows = 10,
+	endFlag = 0,
+	zpop = null,
+	zmask = null,
+	scanFlag = 0;
+
+/*$(function(){
+	zpop = document.getElementById("J_pop");
+    zmask = mui.createMask(function(){
+        zpop.classList.remove('mui-active');
+    });
+	zmask.show();//显示遮罩
+    zpop.classList.add('mui-active');
+    
+    mui("body").on("hidden", ".mui-popover", function(e) {
+    	console.log("8989")
+    })
+})*/
+
+mui.plusReady(function(){
+    
+    zpop = document.getElementById("J_pop");
+    zmask = mui.createMask(function(){
+        refreshDatas();
+    });
+	
+	//阻尼系数
+	var deceleration = mui.os.ios?0.003:0.0009;
+	mui('.mui-scroll-wrapper').scroll({
+		bounce: false,
+		indicators: true, //是否显示滚动条
+		deceleration:deceleration
+	});
+
+	mui(".mui-scroll").pullToRefresh({
+		down: {
+			callback: function() {
+				var self = this;
+				page = 1;
+				endFlag = 0;
+				queryrecipe(self);
+			}
+		},
+		up: {
+			callback: function() {
+				var self = this;
+				if(endFlag){
+					self.endPullUpToRefresh();
+					$("#scroll1 .mui-scroll .mui-pull-bottom-tips .mui-pull-loading").hide();
+					return false;
+				}else{
+					page++;
+					queryrecipe(self, true);
+				}
+			}
+		}
+	});
+	
+//	queryrecipe();
+	mui('.mui-scroll').pullToRefresh().pullDownLoading();
+})
+
+function queryrecipe(self, flag){
+//	createLoading();
+	$.PostJson("json/tableData.json", "page="+page+"&rows="+rows, function(state, json){
+		if(state == 'success'){
+			if(json && json.code == '0000'){
+				if(!json.data.length){
+					mui.toast("暂无出库信息");
+				}
+				if(flag){
+					$("#J_medList").tempAppend($("#T_medList").val(), json.data);
+				}else{
+					$("#J_medList").temp($("#T_medList").val(), json.data);
+				}
+				
+				mui('#J_medList').off("tap").on('tap', '.J_card', function() {
+					/*var code = $(this).data("code");
+					Util.lStorage.setParam("consultId", "J_saomiao");
+					Util.lStorage.setParam("consultRes", code);
+					var param = {
+						top: "top2.html",
+						topId: "orderDetail.html",
+						url: "orderDetail.html",
+						data: {
+							title: "流向跟踪"
+						}
+					}
+					zuiopenW(param);*/
+				});
+				
+				if(json.totalRows === $("#J_medList .J_card").length){
+					endFlag = 1;
+					$("#scroll1 .mui-scroll .mui-pull-bottom-tips .mui-pull-loading").hide();
+				}else{
+					$("#scroll1 .mui-scroll .mui-pull-bottom-tips .mui-pull-loading").show();
+				}
+			}else{
+				mui.alert(json.message || "获取药品出库信息失败！");
+			}
+		}
+		if(self){
+			if(flag){
+				self.endPullUpToRefresh();
+			}else{
+				self.endPullDownToRefresh();
+			}
+		}
+//		unblockLoading();
+	})
+}
+
+window.addEventListener('scaned',function(event){
+	//获得事件参数
+	var res = event.detail.res;
+    getDrugData(res);
+});
+
+function getDrugData(res){
+	createLoading();
+	$.PostJson("json/tableData.json", "code="+res, function(state, json){
+		if(state == 'success'){
+			if(json && json.code == '0000'){
+				/**
+				 * 模拟测试数据
+				 * 正式调用时，直接取后台数据
+				 * **/
+				var d = Math.floor(Math.random() * 10);
+				$("#J_pop").temp($("#T_pop").val(), json.data[d]);
+				
+				zmask.show();//显示遮罩
+    			zpop.classList.add('mui-active');
+				
+				scanFlag = 1;
+			}else{
+				mui.alert(json.message || "获取扫描结果失败！");
+			}
+		}
+		unblockLoading();
+	})
+}
+
+function refreshDatas(){
+	$("#J_medList").html('');
+	// 返回顶部
+	mui('#scroll1').scroll().scrollTo(0, 0, 100);
+	// 触发下拉刷新
+	mui('.mui-scroll').pullToRefresh().pullDownLoading();
+	zpop.classList.remove('mui-active');
+}
+</script>
+</body>
+</html>

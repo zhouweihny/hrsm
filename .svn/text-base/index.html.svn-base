@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<title></title>
+<link href="css/mui.min.css" rel="stylesheet"/>
+<link href="css/common.css" rel="stylesheet"/>
+
+<style type="text/css">
+.mui-bar-tab .J_scanBtn {
+	position: relative;
+}	
+.J_scanBtnWrap {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    display: block;
+    text-align: center;
+    border-radius: 50%;
+    background: #f9e2c0;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+}
+.J_scanBtnWrap img {
+    width: 23px;
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -12px 0 0 -11px;
+}
+.mui-bar-tab .J_citem {
+	display: table-cell;
+    overflow: hidden;
+    width: 1%;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #929292;
+}
+.mui-bar-tab .J_citem.act {
+    color: #0EB1B4;
+}
+.mui-bar-tab .J_citem .mui-icon {
+    top: 3px;
+    width: 24px;
+    height: 24px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.mui-bar-tab .J_citem .mui-icon~.mui-tab-label {
+    font-size: 11px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+
+</head>
+<body>
+<header id="header" class="mui-bar mui-bar-nav">
+	<h1 class="mui-title">首页</h1>
+	<!--<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>-->
+	<!--<a class="mui-icon mui-icon-camera mui-pull-right" id="J_showKc"></a>-->
+</header>
+
+<nav class="mui-bar mui-bar-tab">
+    <a class="J_citem act J_indexpage" data-id="cpage">
+        <span class="mui-icon mui-icon-home"></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="J_citem J_scanBtn" data-id="scanpage">
+        <span class="J_scanBtnWrap">
+        	<img src="css/img/scan.png"/>
+        </span>
+    </a>
+    <a class="J_citem" data-id="user">
+        <span class="mui-icon mui-icon-paperplane"></span>
+        <span class="mui-tab-label">药品出库</span>
+    </a>
+</nav>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+var subInfos = [{
+	url:'cpage.html',
+	id:'cpage'
+},
+{
+	url:'scanpage.html',
+	id:'scanpage'
+},
+{
+	url:'user.html',
+	id:'user'
+}];
+var subStyles = {
+    top: '45px',
+    bottom: '51px'
+};
+
+var mainWv = null;
+var titleEL = document.querySelector('.mui-title');
+var activeTab = '';
+var curPageIndex = '1';
+
+mui.init({
+	statusBarBackground: '#f7f7f7',
+	swipeBack: false
+});
+
+// 根据id查询子页面的信息
+var getSubInfoById = function(infoList, id) {
+    var result = null;
+    for(var i = 0, len = infoList.length; i < len; i++) {
+        var _info = infoList[i];
+        if(_info.id === id) {
+            result = _info;
+            break;
+        }
+    }
+    return result;
+};
+
+mui.plusReady(function(){
+	//读取本地存储，检查是否为首次启动
+	var showGuide = plus.storage.getItem("lauchFlag");
+	//仅支持竖屏显示
+	plus.screen.lockOrientation("portrait-primary");
+	var self = plus.webview.currentWebview();
+	// 关闭ios侧滑返回功能
+	self.setStyle({'popGesture':'none'});
+	
+	mainWv = plus.webview.currentWebview();
+	
+	if(showGuide) {
+		//有值，说明已经显示过了，无需显示；
+		//关闭splash页面；
+		plus.navigator.closeSplashscreen();
+		plus.navigator.setFullscreen(false);
+		//预加载
+		preload();
+	} else {
+		
+	}
+	
+	//两次返回退出
+	var backButtonPress = 0;
+	mui.back = function(event) {
+		backButtonPress++;
+		if (backButtonPress > 1) {
+			plus.runtime.quit();
+		} else {
+			mui.toast('再按一次退出应用');
+		}
+		setTimeout(function() {
+			backButtonPress = 0;
+		}, 1000);
+		return false;
+	};
+	
+	// 默认只加载首页webview
+	var homeWv = plus.webview.create(subInfos[0].url, subInfos[0].id, subStyles);
+	mainWv.append(homeWv);
+	activeTab = subInfos[0].id;
+	
+	$('.mui-bar-tab').on('tap', 'a.J_citem', function(e) {
+		var _self = $(this),
+			_id = _self.data("id"),
+			_tit = _self.find(".mui-tab-label").text();
+		
+		if(_self.hasClass("act") || _id=='scanpage'){
+			return false;
+		}
+		
+		curPageIndex = _id=='cpage' ? "1":"2";
+		titleEL.innerText = _tit;
+		
+		var _subWv = plus.webview.getWebviewById(_id);
+	    // 若webview不存在，则创建；
+	    if(!_subWv) {
+	        var _subInfo = getSubInfoById(subInfos, _id);
+	        _subWv = plus.webview.create(_subInfo.url, _subInfo.id, subStyles);
+	        mainWv.append(_subWv);
+	    }
+        _subWv.show();
+	    // 隐藏之前的webview
+	    plus.webview.getWebviewById(activeTab).hide('none');
+	    $(".J_citem").removeClass("act");
+	    _self.addClass("act");
+	    activeTab = _id;
+	})
+	
+	$(".J_scanBtn").off("tap").on("tap", function(){
+		localStorage.setItem("cpage_scanIndex", curPageIndex);
+		
+		zuiopenW({
+			url: "scanpage.html",
+			id: "scanpage.html"
+		});
+	})
+	
+})
+
+function closeBarcode(){
+	plus.webview.getWebviewById("scanpage.html").close();
+}
+
+</script>
+</body>
+</html>
